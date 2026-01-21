@@ -12,4 +12,8 @@ CLOSED: [2026-01-19 Mon 22:52]
 1. The first line should always be /cmake_minimum_required(${VERSION})/
 2. Then, set the project name, executable file name, using /add_executables(${PROJECT_NAME})/
 3. Define your targets using /target_sources/
-* TODO 
+* Create file logger and track the file types
+** DONE Take in user input through CLI
+CLOSED: [2026-01-20 Tue 23:18]
+** TODO Read contents of the current directory
+** TODO Learn how to navigate to a directory given a path
