@@ -1,4 +1,3 @@
-
 #+title: Process record
 #+author: oddloops
 * DONE Create main.cpp files
