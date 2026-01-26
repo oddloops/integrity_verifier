@@ -28,7 +28,7 @@ CLOSED: [2026-01-25 Sun 18:53]
 *** CMakeList txt updates
 **** DONE Add compile options for all warnings (global)
 CLOSED: [2026-01-25 Sun 19:50]
-**** TODO Testing framework
+**** RESEARCHING Testing framework
 ***** [] Add test framework
 ***** [] Create basic test
 
