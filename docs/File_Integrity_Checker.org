@@ -28,9 +28,11 @@ CLOSED: [2026-01-25 Sun 18:53]
 *** CMakeList txt updates
 **** DONE Add compile options for all warnings (global)
 CLOSED: [2026-01-25 Sun 19:50]
-**** RESEARCHING Testing framework
-***** [] Add test framework
-***** [] Create basic test
-***** [] Create TDD tests for Record mode
-
-
+**** DONE Testing framework
+CLOSED: [2026-02-01 Sun 22:40]
+***** [X] Add test framework (Google Test)
+***** [X] Create basic test
+***** [X] Create TDD tests for Record
+*** Later items (after first working version)
+**** Implement own file directory traversal
+Current version is expected to utilize the /nftw()/ function.
