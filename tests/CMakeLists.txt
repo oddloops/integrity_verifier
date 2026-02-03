@@ -13,14 +13,24 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(
-  hello_test_example
-  hello_test_example.cc
+add_executable(RecordModeTest)
+
+target_sources(RecordModeTest
+	PRIVATE
+		RecordModeTest.cc
+		${PROJECT_SOURCE_DIR}/src/RecordMode.cc
+	PUBLIC
+		FILE_SET HEADERS
+		BASE_DIRS
+			${PROJECT_SOURCE_DIR}/include
+		FILES
+			${PROJECT_SOURCE_DIR}/include/RecordMode.h
 )
+
 target_link_libraries(
-  hello_test_example
+  RecordModeTest
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test_example)
+gtest_discover_tests(RecordModeTest)
