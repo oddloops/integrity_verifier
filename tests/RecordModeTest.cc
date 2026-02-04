@@ -8,5 +8,9 @@ protected:
 };
 
 TEST_F(RecordModeTest, InvalidDirectoryName) {
-  EXPECT_TRUE(recordTest.verifyDirectory(""));
+  EXPECT_FALSE(recordTest.verifyDirectory("tset"));
+}
+
+TEST_F(RecordModeTest, ValidDirectoryName) {
+  EXPECT_TRUE(recordTest.verifyDirectory("test/t1"));
 }
