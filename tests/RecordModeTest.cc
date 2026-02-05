@@ -26,7 +26,7 @@ TEST(RecordModeTest, InvalidDirectory) {
 }
 
 TEST(RecordModeTest, ValidDirectory) {
-  std::filesystem::path testDirectory = "/home/mintvoyager/GitHub/projects/integrity_verifier/tests/testing_directories/test";
+  std::filesystem::path testDirectory = "/home/mintvoyager/GitHub/projects/integrity_verifier/tests/testing_directories/t1";
   EXPECT_NO_THROW({
       RecordMode rm {testDirectory};
     });
