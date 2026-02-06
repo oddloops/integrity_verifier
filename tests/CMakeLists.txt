@@ -13,24 +13,24 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(RecordModeTest)
+add_executable(IntegrityCoreTest)
 
-target_sources(RecordModeTest
+target_sources(IntegrityCoreTest
 	PRIVATE
-		RecordModeTest.cc
-		${PROJECT_SOURCE_DIR}/src/RecordMode.cc
+		IntegrityCoreTest.cc
+		${PROJECT_SOURCE_DIR}/src/IntegrityCore.cc
 	PUBLIC
 		FILE_SET HEADERS
 		BASE_DIRS
 			${PROJECT_SOURCE_DIR}/include
 		FILES
-			${PROJECT_SOURCE_DIR}/include/RecordMode.h
+			${PROJECT_SOURCE_DIR}/include/IntegrityCore.h
 )
 
 target_link_libraries(
-  RecordModeTest
+  IntegrityCoreTest
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(RecordModeTest)
+gtest_discover_tests(IntegrityCoreTest)
