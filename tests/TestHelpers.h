@@ -25,7 +25,6 @@ bool getDirectoryTestHelper(
     if (m1Info.fileExtension != m2Info.fileExtension) return false;
     if (m1Info.fileHash != m2Info.fileHash) return false;
   }
-  
   return true;
 }
  
