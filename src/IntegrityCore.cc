@@ -1,17 +1,26 @@
 #include "../include/IntegrityCore.h"
 
-ValidateMessage IntegrityCore::validateDirectory(const std::filesystem::path& targetDirectory)
+bool IntegrityCore::validateDirectory(const std::filesystem::path& targetDirectory) const
 {
   try {
     std::filesystem::file_status tDirectory = std::filesystem::status(targetDirectory);
     if (!std::filesystem::is_directory(tDirectory)) {
-      return ValidateMessage{false, "invalid directory path"};
+      return false;
     }
     
-    return ValidateMessage{true, "valid directory path"};
+    return true;
   }
   catch (std::filesystem::filesystem_error const& e) {
     std::cout << "Filesystem error: " << e.what() << std::endl;
-    return ValidateMessage{false, e.what()};
+    return false;
   }
+}
+
+std::map<std::filesystem::path, FileInfo> IntegrityCore::getDirectoryContents(const std::filesystem::path& targetDirectory) const
+{
+  std::map<std::filesystem::path, FileInfo> directoryPaths;
+  if (!this->validateDirectory(targetDirectory)) {
+    return directoryPaths;
+  }
+  return directoryPaths;
 }
