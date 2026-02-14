@@ -52,3 +52,22 @@ void IntegrityCore::setFileInfo(FileInfo& fi, std::filesystem::path const& p) {
   fi.lastModified = getLastModifiedTime(p);
   fi.recordTimestamp = setRecordTime(p);
 }
+
+std::string IntegrityCore::getFileName(std::filesystem::path const& p) const {
+  return p.stem().string();
+}
+
+std::string IntegrityCore::getFileExtension(std::filesystem::path const& p) const {
+}
+
+u_int64_t IntegrityCore::getFileSize(std::filesystem::path const& p) const {
+}
+
+std::filesystem::perms IntegrityCore::getPermissions(std::filesystem::path const& p) const {
+}
+
+std::chrono::time_point<std::chrono::system_clock> IntegrityCore::getLastModifiedTime(std::filesystem::path const& p) const {
+}
+
+std::chrono::time_point<std::chrono::system_clock> IntegrityCore::setRecordTime(std::filesystem::path const& p) const {
+}
