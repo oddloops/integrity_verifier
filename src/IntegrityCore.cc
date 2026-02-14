@@ -19,7 +19,7 @@ bool IntegrityCore::validateDirectory(std::filesystem::path const& targetDirecto
 
 std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> IntegrityCore::getDirectoryContents(std::filesystem::path const& targetDirectory) const
 {
-  std::map<std::filesystem::path, FileInfo> directoryPaths;
+  std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> directoryPaths;
   if (!this->validateDirectory(targetDirectory)) {
     return directoryPaths;
   }
@@ -32,14 +32,14 @@ std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> Integ
   return directoryPaths;
 }
 
-std::string IntegrityCore::computeHash(std::filesystem::path const& filePath) {
+std::string IntegrityCore::computeHash(std::filesystem::path const& filePath) const {
   return ""; // TODO
 }
 
-FileInfo IntegrityCore::createFileInfo(std::filesystem::path const& p) const
+FileInfo IntegrityCore::createFileInfo(std::filesystem::path const& p)
 {
   FileInfo fileDetails;
-  setFileInfo(fileDetails);
+  setFileInfo(fileDetails, p);
   return fileDetails;
 }
 
@@ -58,16 +58,4 @@ std::string IntegrityCore::getFileName(std::filesystem::path const& p) const {
 }
 
 std::string IntegrityCore::getFileExtension(std::filesystem::path const& p) const {
-}
-
-u_int64_t IntegrityCore::getFileSize(std::filesystem::path const& p) const {
-}
-
-std::filesystem::perms IntegrityCore::getPermissions(std::filesystem::path const& p) const {
-}
-
-std::chrono::time_point<std::chrono::system_clock> IntegrityCore::getLastModifiedTime(std::filesystem::path const& p) const {
-}
-
-std::chrono::time_point<std::chrono::system_clock> IntegrityCore::setRecordTime(std::filesystem::path const& p) const {
 }
