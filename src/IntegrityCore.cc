@@ -1,23 +1,6 @@
 #include "../include/IntegrityCore.h"
 #include <map>
 
-namespace {
-  std::string computeHash(std::filesystem::path const& filePath) {
-    return ""; // TODO
-  }
-
-  FileInfo setFileInfo(std::filesystem::directory_entry const& e) {
-    std::filesystem::path const ePath = e.path();
-    return FileInfo {
-      ePath.stem().string(),
-      ePath,
-      ePath.extension(),
-      computeHash(ePath),
-      std::chrono::system_clock::now()
-    };
-  }
-}
-
 bool IntegrityCore::validateDirectory(std::filesystem::path const& targetDirectory) const
 {
   try {
@@ -49,4 +32,23 @@ std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> Integ
   return directoryPaths;
 }
 
-FileInfo setFile
+std::string IntegrityCore::computeHash(std::filesystem::path const& filePath) {
+  return ""; // TODO
+}
+
+FileInfo IntegrityCore::createFileInfo(std::filesystem::path const& p) const
+{
+  FileInfo fileDetails;
+  setFileInfo(fileDetails);
+  return fileDetails;
+}
+
+void IntegrityCore::setFileInfo(FileInfo& fi, std::filesystem::path const& p) {
+  fi.fileName = getFileName(p);
+  fi.filePath = p;
+  fi.fileExtension = getFileExtension(p);
+  fi.fileSize = getFileSize(p);
+  fi.permissions = getPermissions(p);
+  fi.lastModified = getLastModifiedTime(p);
+  fi.recordTimestamp = setRecordTime(p);
+}
