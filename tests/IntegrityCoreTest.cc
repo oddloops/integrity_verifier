@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
 #include "../include/IntegrityCore.h"
-#include "TestHelpers.h"
+#include "include/TestHelpers.h"
 
 class IntegrityCoreTestClass : public testing::Test
 {
@@ -11,31 +11,16 @@ protected:
   IntegrityCore core;
 };
 
-// validateDirectory Tests
-TEST_F(IntegrityCoreTestClass, InvalidDirectoryBool) {
-  const std::filesystem::path p1 = "sandbox/t1";
-  std::filesystem::create_directories(p1);
-  const std::filesystem::path p2 = "sandbox/t2";
-  EXPECT_FALSE(core.validateDirectory(p2));
-  std::filesystem::remove_all("sandbox");
-}
-
-TEST_F(IntegrityCoreTestClass, ValidDirectoryBool) {
+TEST_F(IntegrityCoreTestClass, ValidateThrowHandle) {
   const std::filesystem::path p = "sandbox/t1";
   std::filesystem::create_directories(p);
-  EXPECT_TRUE(core.validateDirectory(p));
-  std::filesystem::remove_all("sandbox");
-}
-
-TEST_F(IntegrityCoreTestClass, ValidateThrow) {
-  const std::filesystem::path p = "sandbox/t1";
-  std::filesystem::create_directories(p);
+  TestHelpers::createFile(p/"fileP1.txt", "Hello c1");
   std::filesystem::permissions(
 			       "sandbox",
 			       std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec,
 			       std::filesystem::perm_options::remove
 			      );
-  EXPECT_FALSE(core.validateDirectory(p));
+  EXPECT_FALSE(core.validatePath(p/"fileP1.txt", AcceptedFile::FILE));
   std::filesystem::permissions(
 			       "sandbox",
 			       std::filesystem::perms::owner_all,
@@ -44,8 +29,35 @@ TEST_F(IntegrityCoreTestClass, ValidateThrow) {
   std::filesystem::remove_all("sandbox");
 }
 
-// createFileInfo tests
-TEST_F(IntegrityCoreTestClass, createFileInfo) {
+TEST_F(IntegrityCoreTestClass, ValidateDirectory) {
+  const std::filesystem::path p1 = "sandbox/t1";
+  std::filesystem::create_directories(p1);
+  
+  EXPECT_TRUE(core.validatePath(p1, AcceptedFile::DIRECTORY));
+  
+  std::filesystem::remove_all("sandbox");
+}
+
+TEST_F(IntegrityCoreTestClass, ValidateFile) {
+  const std::filesystem::path p = "sandbox/t1";
+  std::filesystem::create_directories(p);
+  TestHelpers::createFile(p/"fileP1.txt", "Hello c1");
+  
+  EXPECT_TRUE(core.validatePath(p/"fileP1.txt", AcceptedFile::FILE));
+
+  std::filesystem::remove_all("sandbox");
+}
+
+TEST_F(IntegrityCoreTestClass, ValidateBadFile) {
+  const std::filesystem::path p = "sandbox/t1";
+  std::filesystem::create_directories(p);
+  
+  EXPECT_FALSE(core.validatePath("sandbox/t2", AcceptedFile::FILE));
+
+  std::filesystem::remove_all("sandbox");
+}
+
+TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
   const std::filesystem::path root = "sandbox";
   const std::filesystem::path p1 = root/"c1";
   std::filesystem::create_directories(p1);
