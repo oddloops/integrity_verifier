@@ -1,8 +1,14 @@
 #ifndef status_output
 #define status_output
 
-#include "statuses.h"
+#include <iostream>
+#include <string>
+#include <cctype>
+#include <algorithm>
 
-void print_status(int status);
+#include "Statuses.h"
+
+Status normalizeInput(std::string s);
+void print_status(Status status);
 
 #endif
