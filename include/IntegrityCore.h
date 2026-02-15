@@ -9,12 +9,13 @@
 #include <sys/types.h>
 
 #include "ValidateMessage.h"
+#include "AcceptedFiles.h"
 #include "FileInfo.h"
 
 class IntegrityCore
 {
  public:
-  bool validateDirectory(std::filesystem::path const& targetDirectory) const;
+  bool validatePath(std::filesystem::path const& p, AcceptedFile fType) const;
   std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> getDirectoryContents(std::filesystem::path const& targetDirectory) const;
   std::string computeHash(std::filesystem::path const& filePath) const;
   FileInfo createFileInfo(std::filesystem::path const& directory_entry);

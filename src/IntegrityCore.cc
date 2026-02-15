@@ -3,26 +3,24 @@
 #include <map>
 #include <sys/types.h>
 
-bool IntegrityCore::validateDirectory(std::filesystem::path const& targetDirectory) const
-{
-  try {
-    std::filesystem::file_status tDirectory = std::filesystem::status(targetDirectory);
-    if (!std::filesystem::is_directory(tDirectory)) {
-      return false;
-    }
-    
-    return true;
-  }
-  catch (std::filesystem::filesystem_error const& e) {
-    std::cout << "Filesystem error: " << e.what() << std::endl;
+bool IntegrityCore::validatePath(std::filesystem::path const& p, AcceptedFile fType) const {
+  std::error_code ec;
+  std::filesystem::file_status s = std::filesystem::symlink_status(p, ec);
+
+  if (ec) {
+    std::cout << "Filesystem error: " << ec.message() << std::endl;
     return false;
   }
+  if (!std::filesystem::exists(s)) return false;
+  if (fType == AcceptedFile::DIRECTORY && std::filesystem::is_directory(s)) return true;
+  if (fType == AcceptedFile::FILE && std::filesystem::is_regular_file(s)) return true;
+  return false;
 }
 
 std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> IntegrityCore::getDirectoryContents(std::filesystem::path const& targetDirectory) const
 {
   std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> directoryPaths;
-  if (!this->validateDirectory(targetDirectory)) {
+  if (!this->validatePath(targetDirectory, AcceptedFile::DIRECTORY)) {
     return directoryPaths;
   }
 
