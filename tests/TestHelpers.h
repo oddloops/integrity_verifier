@@ -16,26 +16,6 @@ namespace TestHelpers {
     if (f1.fileExtension != f2.fileExtension) return false;
     return true;
   }
-  
-  bool getDirectoryTestHelper(
-			      const std::map<std::filesystem::path, FileInfo>& m1,
-			      const std::map<std::filesystem::path, FileInfo>& m2
-			      ) {
-    if (m1.size() != m2.size()) {
-      return false;
-    }
-    
-    for (const auto& [path, m1Info] : m1) {
-      auto m2Path = m2.find(path);
-      if (m2Path == m2.end()) return false;
-      
-      const FileInfo m2Info = m2Path->second;
-      if (!compareFileInfo(m1Info, m2Info)) {
-	return false;
-      }
-    }
-    return true;
-  }
 }
 
 #endif
