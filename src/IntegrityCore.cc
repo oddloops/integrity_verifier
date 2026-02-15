@@ -1,4 +1,5 @@
 #include "../include/IntegrityCore.h"
+#include <chrono>
 #include <map>
 #include <sys/types.h>
 
@@ -46,12 +47,12 @@ FileInfo IntegrityCore::createFileInfo(std::filesystem::path const& p)
 
 void IntegrityCore::setFileInfo(FileInfo& fi, std::filesystem::path const& p) {
   fi.fileName = getFileName(p);
-  fi.filePath = p;
+  fi.filePath = p.lexically_normal();
   fi.fileExtension = getFileExtension(p);
   fi.fileSize = getFileSize(p);
   fi.permissions = getPermissions(p);
   fi.lastModified = getLastModifiedTime(p);
-  fi.recordTimestamp = setRecordTime(p);
+  fi.recordTimestamp = recordTimestamp();
 }
 
 std::string IntegrityCore::getFileName(std::filesystem::path const& p) const {
@@ -68,4 +69,13 @@ u_int64_t IntegrityCore::getFileSize(std::filesystem::path const& p) const {
 
 std::filesystem::perms IntegrityCore::getPermissions(std::filesystem::path const& p) const {
   return std::filesystem::status(p).permissions();
+}
+
+std::filesystem::file_time_type IntegrityCore::getLastModifiedTime(std::filesystem::path const& p) const {
+  const auto lTime = std::filesystem::last_write_time(p);
+  return lTime;
+}
+
+std::chrono::time_point<std::chrono::system_clock> IntegrityCore::recordTimestamp() const {
+  return std::chrono::system_clock::now();
 }
