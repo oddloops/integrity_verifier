@@ -65,3 +65,7 @@ std::string IntegrityCore::getFileExtension(std::filesystem::path const& p) cons
 u_int64_t IntegrityCore::getFileSize(std::filesystem::path const& p) const {
   return std::filesystem::file_size(p);
 }
+
+std::filesystem::perms IntegrityCore::getPermissions(std::filesystem::path const& p) const {
+  return std::filesystem::status(p).permissions();
+}
