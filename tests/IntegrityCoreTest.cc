@@ -20,7 +20,7 @@ TEST_F(IntegrityCoreTestClass, ValidateThrowHandle) {
 			       std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec,
 			       std::filesystem::perm_options::remove
 			      );
-  EXPECT_FALSE(core.validatePath(p/"fileP1.txt", AcceptedFile::FILE));
+  EXPECT_FALSE(core.validatePath(p/"fileP1.txt", AcceptedFSType::FILE));
   std::filesystem::permissions(
 			       "sandbox",
 			       std::filesystem::perms::owner_all,
@@ -33,7 +33,7 @@ TEST_F(IntegrityCoreTestClass, ValidateDirectory) {
   const std::filesystem::path p1 = "sandbox/t1";
   std::filesystem::create_directories(p1);
   
-  EXPECT_TRUE(core.validatePath(p1, AcceptedFile::DIRECTORY));
+  EXPECT_TRUE(core.validatePath(p1, AcceptedFSType::DIRECTORY));
   
   std::filesystem::remove_all("sandbox");
 }
@@ -43,7 +43,7 @@ TEST_F(IntegrityCoreTestClass, ValidateFile) {
   std::filesystem::create_directories(p);
   TestHelpers::createFile(p/"fileP1.txt", "Hello c1");
   
-  EXPECT_TRUE(core.validatePath(p/"fileP1.txt", AcceptedFile::FILE));
+  EXPECT_TRUE(core.validatePath(p/"fileP1.txt", AcceptedFSType::FILE));
 
   std::filesystem::remove_all("sandbox");
 }
@@ -52,7 +52,7 @@ TEST_F(IntegrityCoreTestClass, ValidateBadFile) {
   const std::filesystem::path p = "sandbox/t1";
   std::filesystem::create_directories(p);
   
-  EXPECT_FALSE(core.validatePath("sandbox/t2", AcceptedFile::FILE));
+  EXPECT_FALSE(core.validatePath("sandbox/t2", AcceptedFSType::FILE));
 
   std::filesystem::remove_all("sandbox");
 }
