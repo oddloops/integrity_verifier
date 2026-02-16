@@ -30,7 +30,7 @@ CLOSED: [2026-02-14 Sat 20:39]
 CLOSED: [2026-02-15 Sun 21:25]
 ***** DONE Exception handling for file_size() (ensure it's a file)
 CLOSED: [2026-02-15 Sun 21:25]
-***** TODO Create DirectoryObject class for file info storage
+***** IN-PROGRESS Create DirectoryObject struct for file info storage
 ***** TODO Directory/subdirectory traversal
 ***** RESEARCHING Hash Computation
 *** Write (Record) Mode
