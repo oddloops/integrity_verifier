@@ -72,41 +72,50 @@ TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
 
   std::filesystem::remove_all("sandbox");
 }
-/*
-// getDirectoryContents Tests
-TEST_F(IntegrityCoreTestClass, getEmptyDirectory) {
-  const std::filesystem::path p = "sandbox/t1";
-  std::filesystem::create_directories(p);
-  std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> actualMap = core.getDirectoryContents(p);
-  std::map<std::filesystem::path, std::map<std::filesystem::path, FileInfo>> expectedMap{};
 
-  EXPECT_TRUE(TestHelpers::getDirectoryTestHelper(actualMap, expectedMap));
-
-  std::filesystem::remove_all("sandbox");
-}
-
-
-TEST_F(IntegrityCoreTestClass, getDirectoryContentsOutput) {
-  auto createFile = [](const std::filesystem::path& p, std::string_view pContents){
-    std::ofstream newFile(p);
-    newFile << pContents;
-  };
-  
+// Directory Scan Tests
+TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
   const std::filesystem::path root = "sandbox";
   const std::filesystem::path p1 = root/"c1";
   const std::filesystem::path p2 = root/"c2";
+  const std::filesystem::path p3 = root/"c3";
+  const std::filesystem::path p4 = p3/"t1";
+  
   std::filesystem::create_directories(p1);
   std::filesystem::create_directories(p2);
-
+  std::filesystem::create_directories(p3);
+  std::filesystem::create_directories(p4);
+  
   TestHelpers::createFile(p1/"fileP1.txt", "Hello c1");
-  TestHelpers::createFile(p1/"config.json", "{ \"key\": 1 }");
-  TestHelpers::createFile(p1/"image.png", "png");
-  TestHelpers::createFile(p1/"fileP2.txt", "Hello c2");
-  TestHelpers::createFile(p2/"script.py", "print('Hello World!')");
-  TestHelpers::createFile(p2/"archive.zip", "dummy zip");
 
-  EXPECT_TRUE(true); //TODO
+  TestHelpers::createFile(p2/"testImage.png", "");
+  TestHelpers::createFile(p2/"testImage.jpg", "");
+  TestHelpers::createFile(p2/"testVideo.mp4", "");
+  
+  TestHelpers::createFile(p3/".bin", "");
+  TestHelpers::createFile(p3/"makefile", "");
+
+  TestHelpers::createFile(p4/"test1.zip", "");
+
+  DirectoryContent actualDC = core.scanDirectory(root);
+
+  EXPECT_EQ(root, actualDC.directoryPath);
+
+  std::cout << "|------------ SCAN OUTPUT ------------|" << std::endl;
+  int i = 0;
+  std::cout << "Root Directory: " << actualDC.directoryPath.string() << std::endl;
+  for (auto sub_dir : actualDC.subdirectories) {
+    i++;
+    std::cout << "Sub (" << i << "): " << sub_dir << "\n";
+  }
+  i = 0;
+  for (auto& fi : actualDC.files) {
+    i++;
+    std::cout << "File (" << i << ")\n";
+    TestHelpers::fiOut(std::cout, fi);
+  }
+  
+  EXPECT_TRUE(true);
 
   std::filesystem::remove_all("sandbox");
 }
-*/
