@@ -1,5 +1,5 @@
-#include "../include/FileInfo.h"
 #include "include/TestHelpers.h"
+#include <system_error>
 
 namespace TestHelpers {
   void createFile(std::filesystem::path const& p, std::string_view pContents) {
@@ -14,10 +14,24 @@ namespace TestHelpers {
     return true;
   }
 
+  void contentsOut(DirectoryContent const& dc) {
+    int i = 0;
+    std::cout << "Root Directory: " << dc.directoryPath.string() << std::endl;
+    std::cout << "Subdirectories" << std::endl;
+    for (auto& sd : dc.subdirectories) {
+      std::cout << "(" << ++i << ") " << sd.string() << "\n";
+    }
+    i = 0;
+    std::cout << "Files" << std::endl;
+    for (auto& fi : dc.files) {
+      std::cout << "File (" << ++i << ")\n";
+      TestHelpers::fiOut(std::cout, fi);
+    }
+  }
+  
   std::ostream& fiOut(std::ostream& os, const FileInfo& fi) {
-    os << "FileInfo:\n"
-       << " Name: " << fi.fileName << "\n"
-       << " Path: " << fi.filePath << "\n"
+    os << " Name: " << fi.fileName << "\n"
+       << " Path: " << fi.filePath.string() << "\n"
        << " Extension: " << fi.fileExtension << "\n"
        << " Size: " << fi.fileSize << "\n"
        << " Permissions: " << permsToString(fi.permissions) << "\n"
