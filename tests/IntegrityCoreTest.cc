@@ -47,13 +47,14 @@ TEST_F(IntegrityCoreTestClass, ValidateDirectory) {
 }
 
 TEST_F(IntegrityCoreTestClass, ValidateFile) {
-  const std::filesystem::path p = "sandbox/t1";
+  const std::filesystem::path root = std::filesystem::temp_directory_path() / "ValidateFTest";
+  const std::filesystem::path p = root/"t1";
   std::filesystem::create_directories(p);
   TestHelpers::createFile(p/"fileP1.txt", "Hello c1");
   
   EXPECT_TRUE(core.validatePath(p/"fileP1.txt", AcceptedFSType::FILE));
 
-  std::filesystem::remove_all(p);
+  std::filesystem::remove_all(root);
 }
 
 TEST_F(IntegrityCoreTestClass, ValidateBadFile) {
