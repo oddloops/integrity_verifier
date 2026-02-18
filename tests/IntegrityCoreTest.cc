@@ -12,30 +12,38 @@ protected:
 };
 
 TEST_F(IntegrityCoreTestClass, ValidateThrowHandle) {
-  const std::filesystem::path p = "sandbox/t1";
+  const std::filesystem::path root = std::filesystem::temp_directory_path() / "validateThrowTest";
+  const std::filesystem::path p = root/"t1";
+  
   std::filesystem::create_directories(p);
   TestHelpers::createFile(p/"fileP1.txt", "Hello c1");
+  
   std::filesystem::permissions(
-			       "sandbox",
+			       root,
 			       std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec,
 			       std::filesystem::perm_options::remove
 			      );
+  
   EXPECT_FALSE(core.validatePath(p/"fileP1.txt", AcceptedFSType::FILE));
+
+  std::error_code ec;
   std::filesystem::permissions(
-			       "sandbox",
+			       root,
 			       std::filesystem::perms::owner_all,
-			       std::filesystem::perm_options::add
+			       std::filesystem::perm_options::add,
+			       ec
 			      ); 
-  std::filesystem::remove_all("sandbox");
+  std::filesystem::remove_all(root, ec);
 }
 
 TEST_F(IntegrityCoreTestClass, ValidateDirectory) {
-  const std::filesystem::path p1 = "sandbox/t1";
+  const std::filesystem::path root = "sandbox";
+  const std::filesystem::path p1 = root/"t1";
   std::filesystem::create_directories(p1);
   
   EXPECT_TRUE(core.validatePath(p1, AcceptedFSType::DIRECTORY));
-  
-  std::filesystem::remove_all("sandbox");
+
+  std::filesystem::remove_all(root);
 }
 
 TEST_F(IntegrityCoreTestClass, ValidateFile) {
@@ -45,7 +53,7 @@ TEST_F(IntegrityCoreTestClass, ValidateFile) {
   
   EXPECT_TRUE(core.validatePath(p/"fileP1.txt", AcceptedFSType::FILE));
 
-  std::filesystem::remove_all("sandbox");
+  std::filesystem::remove_all(p);
 }
 
 TEST_F(IntegrityCoreTestClass, ValidateBadFile) {
@@ -54,7 +62,7 @@ TEST_F(IntegrityCoreTestClass, ValidateBadFile) {
   
   EXPECT_FALSE(core.validatePath("sandbox/t2", AcceptedFSType::FILE));
 
-  std::filesystem::remove_all("sandbox");
+  std::filesystem::remove_all(p);
 }
 
 TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
@@ -70,7 +78,7 @@ TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
   expectedFileInfo.fileExtension = ".txt";
   EXPECT_TRUE(TestHelpers::compareFileInfo(expectedFileInfo, actualFileInfo));
 
-  std::filesystem::remove_all("sandbox");
+  std::filesystem::remove_all(root);
 }
 
 // Directory Scan Tests
@@ -96,26 +104,25 @@ TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
   TestHelpers::createFile(p3/"makefile", "");
 
   TestHelpers::createFile(p4/"test1.zip", "");
+  // std::filesystem::permissions(
+  // 			       p4,
+  // 			       std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec,
+  // 			       std::filesystem::perm_options::remove
+  // 			      );
 
   DirectoryContent actualDC = core.scanDirectory(root);
+  // std::filesystem::permissions(
+  // 			       root,
+  // 			       std::filesystem::perms::owner_all,
+  // 			       std::filesystem::perm_options::add
+  // 			      ); 
 
   EXPECT_EQ(root, actualDC.directoryPath);
 
   std::cout << "|------------ SCAN OUTPUT ------------|" << std::endl;
-  int i = 0;
-  std::cout << "Root Directory: " << actualDC.directoryPath.string() << std::endl;
-  for (auto sub_dir : actualDC.subdirectories) {
-    i++;
-    std::cout << "Sub (" << i << "): " << sub_dir << "\n";
-  }
-  i = 0;
-  for (auto& fi : actualDC.files) {
-    i++;
-    std::cout << "File (" << i << ")\n";
-    TestHelpers::fiOut(std::cout, fi);
-  }
+  TestHelpers::contentsOut(actualDC);
   
   EXPECT_TRUE(true);
-
-  std::filesystem::remove_all("sandbox");
+  std::filesystem::remove_all(root);
 }
+ 
