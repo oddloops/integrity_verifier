@@ -71,7 +71,7 @@ TEST_F(IntegrityCoreTestClass, ValidateBadFile) {
 }
 
 TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
-  const std::filesystem::path root = "sandbox";
+  const std::filesystem::path root = std::filesystem::temp_directory_path() / "CreateFITest";
   const std::filesystem::path p1 = root/"c1";
   std::filesystem::create_directories(p1);
   TestHelpers::createFile(p1/"fileP1.txt", "Hello c1");
@@ -83,12 +83,13 @@ TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
   expectedFileInfo.fileExtension = ".txt";
   EXPECT_TRUE(TestHelpers::compareFileInfo(expectedFileInfo, actualFileInfo));
 
-  std::filesystem::remove_all(root);
+  std::error_code ec;
+  std::filesystem::remove_all(root, ec);
 }
 
 // Directory Scan Tests
 TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
-  const std::filesystem::path root = "sandbox";
+  const std::filesystem::path root = std::filesystem::temp_directory_path() / "ScanDCTests";
   const std::filesystem::path p1 = root/"c1";
   const std::filesystem::path p2 = root/"c2";
   const std::filesystem::path p3 = root/"c3";
@@ -128,6 +129,7 @@ TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
   TestHelpers::contentsOut(actualDC);
   
   EXPECT_TRUE(true);
-  std::filesystem::remove_all(root);
+  std::error_code ec;
+  std::filesystem::remove_all(root, ec);
 }
  
