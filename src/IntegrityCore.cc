@@ -1,7 +1,7 @@
 #include "../include/IntegrityCore.h"
 #include <chrono>
-#include <map>
 #include <ostream>
+#include <algorithm>
 #include <sys/types.h>
 
 bool IntegrityCore::validatePath(std::filesystem::path const& p, AcceptedFSType fType) const {
@@ -37,6 +37,11 @@ DirectoryContent IntegrityCore::scanDirectory(std::filesystem::path const& dPath
       contents.files.push_back(createFileInfo(dirPath));
     }
   }
+  std::sort(contents.subdirectories.begin(), contents.subdirectories.end());
+  std::sort(contents.files.begin(), contents.files.end(),
+            [](auto const &a, auto const &b) {
+              return a.filePath.string() < b.filePath.string();
+            });
   return contents;
 }
 
