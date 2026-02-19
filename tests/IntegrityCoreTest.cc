@@ -88,6 +88,37 @@ TEST_F(IntegrityCoreTestClass, CreateFileInfo) {
 }
 
 // Directory Scan Tests
+TEST_F(IntegrityCoreTestClass, ScanDirectoryPermissionsContents) {
+  const std::filesystem::path root = std::filesystem::temp_directory_path() / "ScanDCPermTests";
+  const std::filesystem::path p1 = root/"c1";
+ 
+  std::filesystem::create_directories(p1);
+ 
+  TestHelpers::createFile(p1/"fileP1.txt", "Hello c1");
+
+  std::filesystem::permissions(
+			       p1,
+			       std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec,
+			       std::filesystem::perm_options::remove
+			      );
+
+  DirectoryContent actualDC = core.scanDirectory(root);
+  EXPECT_EQ(root, actualDC.directoryPath);
+
+  std::cout << "|------------ SCAN OUTPUT ------------|" << std::endl;
+  TestHelpers::contentsOut(actualDC);
+  
+  EXPECT_EQ(actualDC.subdirectories.size(), 1);
+  std::error_code ec;
+  std::filesystem::permissions(
+			       p1,
+			       std::filesystem::perms::owner_all,
+			       std::filesystem::perm_options::add,
+			       ec
+			      ); 
+  std::filesystem::remove_all(root, ec);
+}
+
 TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
   const std::filesystem::path root = std::filesystem::temp_directory_path() / "ScanDCTests";
   const std::filesystem::path p1 = root/"c1";
@@ -110,25 +141,14 @@ TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
   TestHelpers::createFile(p3/"makefile", "");
 
   TestHelpers::createFile(p4/"test1.zip", "");
-  // std::filesystem::permissions(
-  // 			       p4,
-  // 			       std::filesystem::perms::owner_exec | std::filesystem::perms::group_exec | std::filesystem::perms::others_exec,
-  // 			       std::filesystem::perm_options::remove
-  // 			      );
 
   DirectoryContent actualDC = core.scanDirectory(root);
-  // std::filesystem::permissions(
-  // 			       root,
-  // 			       std::filesystem::perms::owner_all,
-  // 			       std::filesystem::perm_options::add
-  // 			      ); 
-
   EXPECT_EQ(root, actualDC.directoryPath);
+  EXPECT_EQ(actualDC.subdirectories.size(), 3);
 
   std::cout << "|------------ SCAN OUTPUT ------------|" << std::endl;
   TestHelpers::contentsOut(actualDC);
   
-  EXPECT_TRUE(true);
   std::error_code ec;
   std::filesystem::remove_all(root, ec);
 }
