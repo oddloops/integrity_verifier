@@ -1,2 +1,8 @@
 # Build output
 build/
+
+# vcpkg installation files
+vcpkg/installed/
+vcpkg/packages/
+vcpkg/buildtrees/
+vcpkg/downloads/

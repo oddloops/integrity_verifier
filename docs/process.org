@@ -12,5 +12,11 @@ CLOSED: [2026-01-19 Mon 22:52]
 2. Then, set the project name, executable file name, using /add_executables(${PROJECT_NAME})/
 3. Define your targets using /target_sources/
 ** To Run
-1. cmake -S . -B build /  cmake -B build
-2. cmake --build build
+#+begin_src shell
+cmake -S . -B build /  cmake -B build
+
+# With the introduction of vcpkg for nlohmann/json, use the following:
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake
+
+cmake --build build
+#+end_src

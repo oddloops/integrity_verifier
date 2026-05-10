@@ -38,8 +38,8 @@ CLOSED: [2026-02-19 Thu 20:56]
 CLOSED: [2026-03-10 Tue 21:25]
 *** Write (Record) Mode
 **** TODO Create a preview output that will show the "tree" structure of the directory's contents
-**** RESEARCHING Call Integrity core
-**** RESEARCHING output manifest
+**** TESTING Call Integrity core
+**** TESTING output manifest
 *** Verify Mode
 **** Accepts name input
 ***** If no name, displays an list of recorded directory manifests
