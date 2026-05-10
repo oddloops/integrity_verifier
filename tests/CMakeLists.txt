@@ -13,12 +13,27 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+add_library(TestHelpers STATIC
+    TestHelpers.cc
+    include/TestHelpers.h
+)
+
+target_include_directories(TestHelpers PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/include
+)
+
+find_package(nlohmann_json CONFIG REQUIRED)
+
+target_link_libraries(TestHelpers PRIVATE nlohmann_json::nlohmann_json)
+
 function(add_test_exe test_name)
 	add_executable(${test_name} ${ARGN})
 
 	target_link_libraries(${test_name}
 		PRIVATE
 		Integrity
+		TestHelpers
 		GTest::gtest_main
 	)
 
@@ -28,7 +43,6 @@ endfunction()
 
 add_test_exe(IntegrityCoreTest
     IntegrityCoreTest.cc
-    TestHelpers.cc
 )
 
 add_test_exe(WriteModeTest
