@@ -7,13 +7,9 @@
 
 bool WriteMode::run(std::filesystem::path const& directoryPath,
 		    std::filesystem::path const& outputPath) {
-  // validate ouput path
-  if (!_core.validatePath(outputPath, AcceptedFSType::DIRECTORY)) {
-    return false;
-  }
-  
-  // validate input path
-  if (!_core.validatePath(directoryPath, AcceptedFSType::DIRECTORY)) {
+  // validate paths
+  if (!_core.validatePath(outputPath, AcceptedFSType::DIRECTORY)
+   || !_core.validatePath(directoryPath, AcceptedFSType::DIRECTORY)) {
     return false;
   }
 
@@ -41,6 +37,6 @@ bool WriteMode::writeRecord(DirectoryContent const& directoryContent,
     return false;
   }
 
-  _errorMessage = "SUCCESS";
+  _errorMessage = "SUCCESS! Wrote to: " + outputFile.string();
   return true;
 }
