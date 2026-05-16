@@ -2,7 +2,6 @@
 #define TESTHELPERS_H
 
 #include <filesystem>
-#include <ostream>
 #include <string_view>
 
 #include "FileInfo.h"
@@ -11,9 +10,6 @@
 namespace TestHelpers {
   void createFile(std::filesystem::path const& p, std::string_view pContents);
   bool compareFileInfo(FileInfo const& f1, FileInfo const& f2);
-  void contentsOut(DirectoryContent const& dc, int _indent=0);
-  std::ostream& fiOut(std::ostream& os, FileInfo const& fi, int _indent=0);
-  std::string permsToString(std::filesystem::perms p);
 }
 
 #endif

@@ -111,7 +111,7 @@ TEST_F(IntegrityCoreTestClass, ScanDirectoryPermissionsContents) {
   EXPECT_EQ(root, actualDC.directoryPath);
 
   std::cout << "|------------ SCAN OUTPUT ------------|" << std::endl;
-  TestHelpers::contentsOut(actualDC);
+  core.outputDirectoryContent(actualDC);
   
   EXPECT_EQ(actualDC.subdirectories.size(), 1);
   std::error_code ec;
@@ -152,7 +152,7 @@ TEST_F(IntegrityCoreTestClass, ScanDirectoryContents) {
   EXPECT_EQ(actualDC.subdirectories.size(), 3);
 
   std::cout << "|------------ SCAN OUTPUT ------------|" << std::endl;
-  TestHelpers::contentsOut(actualDC);
+  core.outputDirectoryContent(actualDC);
   
   std::error_code ec;
   std::filesystem::remove_all(root, ec);
