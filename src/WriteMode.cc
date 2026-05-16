@@ -2,7 +2,6 @@
 #include "AcceptedFSType.h"
 #include <nlohmann/json.hpp>
 
-#include <filesystem>
 #include <fstream>
 
 bool WriteMode::run(std::filesystem::path const& directoryPath,
