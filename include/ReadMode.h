@@ -16,6 +16,7 @@ class ReadMode
   
  private:
   IntegrityCore& _core;
+  std::string _errorMessage;
 };
 
 #endif
