@@ -2,11 +2,6 @@
 #define WRITEMODE_H
 
 #include "Mode.h"
-#include "DirectoryContent.h"
-#include "ModeContext.h"
-
-#include <filesystem>
-#include <string>
 
 class WriteMode : public Mode
 {
