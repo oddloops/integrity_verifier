@@ -1,24 +1,20 @@
 #ifndef WRITEMODE_H
 #define WRITEMODE_H
 
-#include "IntegrityCore.h"
+#include "Mode.h"
 #include "DirectoryContent.h"
+#include "ModeContext.h"
 
 #include <filesystem>
 #include <string>
 
-class WriteMode
+class WriteMode : public Mode
 {
 public:
-  explicit WriteMode (IntegrityCore& core) : _core(core){}
-  bool run(std::filesystem::path const& directoryPath,
-	   std::filesystem::path const& outputPath); // calls writeRecord
-  std::string getErrorMessage() const { return _errorMessage; }
+  using Mode::Mode;
+  bool run(ModeContext const& ctx) override;
   
 private:
-  IntegrityCore& _core;
-  std::string _errorMessage;
-  
   bool writeRecord(DirectoryContent const& directoryContent,
 		   std::filesystem::path const& outputPath); // produce JSON file
 };

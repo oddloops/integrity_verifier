@@ -1,5 +1,6 @@
 #include "IntegrityCore.h"
 #include "WriteMode.h"
+#include "ModeContext.h"
 #include "include/TestHelpers.h"
 
 #include <gtest/gtest.h>
@@ -18,16 +19,18 @@ TEST_F(WriteModeTestClass, ValidateWriteModePaths) {
     std::filesystem::create_directory(inputDir);
     std::filesystem::create_directory(outputDir);
 
-    EXPECT_TRUE(Writer.run(inputDir, outputDir));
+    ModeContext ctx{inputDir, outputDir, ""};
+    
+    EXPECT_TRUE(Writer.run(ctx));
 
     std::error_code ec;
     std::filesystem::remove_all(inputDir, ec);
 
-    EXPECT_FALSE(Writer.run(inputDir, outputDir));
+    EXPECT_FALSE(Writer.run(ctx));
     
     std::filesystem::remove_all(outputDir, ec);
 
-    EXPECT_FALSE(Writer.run(inputDir, outputDir));
+    EXPECT_FALSE(Writer.run(ctx));
 }
 
 TEST_F(WriteModeTestClass, WriteRecordTest) {
@@ -37,11 +40,15 @@ TEST_F(WriteModeTestClass, WriteRecordTest) {
   std::filesystem::create_directories(p1);  
   TestHelpers::createFile(p1/"fileP1.txt", "Hello c1");
   TestHelpers::createFile(p1/"testImage.png", "");
-
+  
   const std::filesystem::path badPath = "bad";
+  ModeContext badCtx{p1, badPath, ""};
+    
   // Bad output location test
-  EXPECT_FALSE(Writer.run(p1, badPath));
-  EXPECT_TRUE(Writer.run(p1, p1));
+  EXPECT_FALSE(Writer.run(badCtx));
+
+  ModeContext goodCtx{p1, p1, ""};
+  EXPECT_TRUE(Writer.run(goodCtx));
   EXPECT_TRUE(std::filesystem::exists(p1/"snapshot.json"));
 	      
   std::error_code ec;
