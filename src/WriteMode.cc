@@ -4,16 +4,15 @@
 
 #include <fstream>
 
-bool WriteMode::run(std::filesystem::path const& directoryPath,
-		    std::filesystem::path const& outputPath) {
+bool WriteMode::run(ModeContext const& ctx) {
   // validate paths
-  if (!_core.validatePath(outputPath, AcceptedFSType::DIRECTORY)
-   || !_core.validatePath(directoryPath, AcceptedFSType::DIRECTORY)) {
+  if (!_core.validatePath(ctx.outputPath, AcceptedFSType::DIRECTORY)
+   || !_core.validatePath(ctx.directoryPath, AcceptedFSType::DIRECTORY)) {
     return false;
   }
 
-  DirectoryContent directoryContent = _core.scanDirectory(directoryPath);
-  return writeRecord(directoryContent, outputPath);
+  DirectoryContent directoryContent = _core.scanDirectory(ctx.directoryPath);
+  return writeRecord(directoryContent, ctx.outputPath);
 }
 
 bool WriteMode::writeRecord(DirectoryContent const& directoryContent,
@@ -35,10 +34,10 @@ bool WriteMode::writeRecord(DirectoryContent const& directoryContent,
   ofs << j.dump(2);
 
   if (!ofs.good()) {
-    _errorMessage = "Failure to write to file: " + outputFile.string();
+    setErrorMsg( "Failure to write to file: " + outputFile.string());
     return false;
   }
 
-  _errorMessage = "SUCCESS! Wrote to: " + outputFile.string();
+  setErrorMsg("SUCCESS! Wrote to: " + outputFile.string());
   return true;
 }

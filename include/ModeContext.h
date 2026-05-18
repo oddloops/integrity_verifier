@@ -7,6 +7,6 @@ struct ModeContext {
   std::filesystem::path directoryPath;
   std::filesystem::path outputPath;
   std::filesystem::path snapshotPath;
-}
+};
 
 #endif

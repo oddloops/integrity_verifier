@@ -4,6 +4,7 @@ add_library(Integrity
 	IntegrityCore.cc
 	status_out.cc
 	WriteMode.cc
+	ReadMode.cc
 	DirectoryContent.cc
 	FileInfo.cc
 )
@@ -18,6 +19,8 @@ target_sources(Integrity
 			${PROJECT_SOURCE_DIR}/include/Statuses.h
 			${PROJECT_SOURCE_DIR}/include/AcceptedFSType.h
 			${PROJECT_SOURCE_DIR}/include/IntegrityCore.h
+			${PROJECT_SOURCE_DIR}/include/Mode.h
+			${PROJECT_SOURCE_DIR}/include/ModeContext.h
 			${PROJECT_SOURCE_DIR}/include/DirectoryContent.h
 			${PROJECT_SOURCE_DIR}/include/FileInfo.h
 )
