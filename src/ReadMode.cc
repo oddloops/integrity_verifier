@@ -1,5 +1,6 @@
 #include "ReadMode.h"
 #include "AcceptedFSType.h"
+#include <fstream>
 
 bool ReadMode::run(std::filesystem::path const& snapshotPath) {
   _errorMessage.clear();
@@ -8,6 +9,12 @@ bool ReadMode::run(std::filesystem::path const& snapshotPath) {
     return false;
   }
 
-  _core.outputDirectoryContent(snapshotPath);
+  std::ifstream ifs(snapshotPath);
+  nlohmann::json j;
+  ifs >> j;
+
+  DirectoryContent dc = j.get<DirectoryContent>();
+  
+  _core.outputDirectoryContent(dc);
   return true;
 }
