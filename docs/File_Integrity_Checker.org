@@ -37,15 +37,17 @@ CLOSED: [2026-02-19 Thu 20:56]
 ***** DONE Hash Computation
 CLOSED: [2026-03-10 Tue 21:25]
 *** Create an abstract Mode class
-**** IN-PROGRESS Create new abstract Mode class
-**** TODO Refactor Write and Read mode classes
+**** DONE Create new abstract Mode class
+CLOSED: [2026-05-17 Sun 23:58]
+**** DONE Refactor Write and Read mode classes
+CLOSED: [2026-05-17 Sun 23:58]
 *** Write (Record) Mode
 **** DONE Call Integrity core
 CLOSED: [2026-05-10 Sun 14:22]
 **** DONE output manifest
 CLOSED: [2026-05-10 Sun 14:22]
 *** Read Mode
-**** IN-PROGRESS Read and output existing record. Else, create record.
+**** TESTING Read and output existing record. Else, create record.
 *** Verify Mode
 **** Accepts name input
 ***** If no name, displays an list of recorded directory manifests
@@ -66,4 +68,4 @@ CLOSED: [2026-02-01 Sun 22:40]
 ***** [X] Create TDD tests for Record
 *** Future items/ideas
 **** UI display for input and output.
-**** Improve error messaging for each mode.
+**** TODO Improve error messaging for each mode.
