@@ -63,3 +63,4 @@ CLOSED: [2026-02-01 Sun 22:40]
 ***** [X] Create TDD tests for Record
 *** Future items/ideas
 **** UI display for input and output.
+**** Improve error messaging for each mode.
