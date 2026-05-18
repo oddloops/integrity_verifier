@@ -2,7 +2,6 @@
 #include "AcceptedFSType.h"
 #include <nlohmann/json.hpp>
 
-#include <filesystem>
 #include <fstream>
 
 bool WriteMode::run(std::filesystem::path const& directoryPath,
@@ -22,8 +21,11 @@ bool WriteMode::writeRecord(DirectoryContent const& directoryContent,
   _errorMessage.clear();
   
   nlohmann::json j = directoryContent;
+
+  // create output JSON file
   std::filesystem::path outputFile = outputPath / "snapshot.json";
 
+  // write to file
   std::ofstream ofs(outputFile, std::ofstream::out);
   if (!ofs.is_open()) {
     _errorMessage = "Failure to open file: " + outputFile.string();

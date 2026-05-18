@@ -36,6 +36,9 @@ CLOSED: [2026-02-16 Mon 23:55]
 CLOSED: [2026-02-19 Thu 20:56]
 ***** DONE Hash Computation
 CLOSED: [2026-03-10 Tue 21:25]
+*** Create an abstract Mode class
+**** IN-PROGRESS Create new abstract Mode class
+**** TODO Refactor Write and Read mode classes
 *** Write (Record) Mode
 **** DONE Call Integrity core
 CLOSED: [2026-05-10 Sun 14:22]
@@ -63,3 +66,4 @@ CLOSED: [2026-02-01 Sun 22:40]
 ***** [X] Create TDD tests for Record
 *** Future items/ideas
 **** UI display for input and output.
+**** Improve error messaging for each mode.
