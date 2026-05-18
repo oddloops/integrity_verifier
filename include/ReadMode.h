@@ -1,22 +1,13 @@
 #ifndef READMODE_H
 #define READMODE_H
 
-#include "IntegrityCore.h"
-#include "DirectoryContent.h"
+#include "Mode.h"
 
-#include <filesystem>
-#include <string>
-
-class ReadMode
+class ReadMode : public Mode
 {
  public:
-  explicit ReadMode (IntegrityCore& core) : _core(core){}
-  bool run(std::filesystem::path const& snapshotPath);
-  std::string getErrorMessage() const { return _errorMessage; }
-  
- private:
-  IntegrityCore& _core;
-  std::string _errorMessage;
+  using Mode::Mode;
+  bool run(ModeContext const& ctx);
 };
 
 #endif
