@@ -4,11 +4,11 @@ add_library(Integrity
 	IntegrityCore.cc
 	status_out.cc
 	
-	WriteMode.cc
-	ReadMode.cc
+	modes/WriteMode.cc
+	modes/ReadMode.cc
 	
-	DirectoryContent.cc
-	FileInfo.cc
+	models/DirectoryContent.cc
+	models/FileInfo.cc
 )
 
 target_sources(Integrity
