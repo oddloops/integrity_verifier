@@ -5,9 +5,9 @@
 
 class ReadMode : public Mode
 {
- public:
+public:
   using Mode::Mode;
-  bool run(ModeContext const& ctx);
+  bool run(ModeContext const& ctx) override;
 };
 
 #endif

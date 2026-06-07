@@ -2,6 +2,7 @@
 #include "AcceptedFSType.h"
 #include <fstream>
 
+// Only valid file name based will be snapshot.json
 bool ReadMode::run(ModeContext const& ctx) {
   _errorMessage.clear();
   if (!_core.validatePath(ctx.snapshotPath, AcceptedFSType::FILE)) {

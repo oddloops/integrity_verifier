@@ -48,3 +48,7 @@ add_test_exe(IntegrityCoreTest
 add_test_exe(WriteModeTest
     WriteModeTest.cc
 )
+
+add_test_exe(ReadModeTest
+    ReadModeTest.cc
+)
