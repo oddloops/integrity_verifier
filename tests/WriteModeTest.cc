@@ -1,6 +1,6 @@
 #include "IntegrityCore.h"
-#include "WriteMode.h"
-#include "ModeContext.h"
+#include "modes/WriteMode.h"
+#include "models/ModeContext.h"
 #include "include/TestHelpers.h"
 
 #include <gtest/gtest.h>

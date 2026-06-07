@@ -2,9 +2,9 @@
 #include "ValidateMessage.h"
 #include "status_out.h"
 #include "Statuses.h"
-#include "AcceptedFSType.h"
-#include "FileInfo.h"
-#include "DirectoryContent.h"
+#include "models/AcceptedFSType.h"
+#include "models/FileInfo.h"
+#include "models/DirectoryContent.h"
 
 #include <chrono>
 #include <fstream>

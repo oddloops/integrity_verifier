@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "DirectoryContent.h"
+#include "models/DirectoryContent.h"
 
 void to_json(nlohmann::json& j, DirectoryContent const& dc) {
   j = {

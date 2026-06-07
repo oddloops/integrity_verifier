@@ -1,4 +1,4 @@
-#include "FileInfo.h"
+#include "models/FileInfo.h"
 
 // Convert chrono time_point -> integer (nanoseconds since epoch)
 static std::int64_t toUnixNanos(std::chrono::time_point<std::chrono::system_clock> tp) {

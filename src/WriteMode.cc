@@ -1,5 +1,5 @@
-#include "WriteMode.h"
-#include "AcceptedFSType.h"
+#include "modes/WriteMode.h"
+#include "models/AcceptedFSType.h"
 #include <nlohmann/json.hpp>
 
 #include <fstream>

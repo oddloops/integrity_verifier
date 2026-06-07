@@ -6,9 +6,9 @@
 #include <chrono>
 #include <ostream>
 
-#include "AcceptedFSType.h"
-#include "FileInfo.h"
-#include "DirectoryContent.h"
+#include "models/AcceptedFSType.h"
+#include "models/FileInfo.h"
+#include "models/DirectoryContent.h"
 
 class IntegrityCore
 {
