@@ -1,7 +1,7 @@
 #include "IntegrityCore.h"
-#include "WriteMode.h"
-#include "ReadMode.h"
-#include "ModeContext.h"
+#include "modes/WriteMode.h"
+#include "modes/ReadMode.h"
+#include "models/ModeContext.h"
 #include "include/TestHelpers.h"
 
 #include <gtest/gtest.h>

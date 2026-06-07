@@ -1,5 +1,5 @@
-#include "ReadMode.h"
-#include "AcceptedFSType.h"
+#include "modes/ReadMode.h"
+#include "models/AcceptedFSType.h"
 #include <fstream>
 
 // Only valid file name based will be snapshot.json

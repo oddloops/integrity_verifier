@@ -4,8 +4,8 @@
 #include <filesystem>
 #include <string_view>
 
-#include "FileInfo.h"
-#include "DirectoryContent.h"
+#include "models/FileInfo.h"
+#include "models/DirectoryContent.h"
 
 namespace TestHelpers {
   void createFile(std::filesystem::path const& p, std::string_view pContents);
