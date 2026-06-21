@@ -14,7 +14,7 @@ private:
   bool verifyRecord(std::filesystem::path const& directoryPath,
 		    std::filesystem::path const& recordPath);
   bool verifyTraversal(DirectoryContent const& recordContent,
-		       DirectoryContent const& currenContent);
+		       DirectoryContent const& currentContent);
   WriteMode _writer;
 };
 
