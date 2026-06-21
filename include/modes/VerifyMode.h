@@ -11,8 +11,8 @@ public:
   bool run(ModeContext const& ctx) override;
   
 private:
-  bool verifyRecord(std::filesystem::path const& recordPath,
-		    std::filesystem::path const& directoryPath);
+  bool verifyRecord(std::filesystem::path const& directoryPath,
+		    std::filesystem::path const& recordPath);
   bool verifyTraversal(DirectoryContent const& recordContent,
 		       DirectoryContent const& currenContent);
   WriteMode _writer;
