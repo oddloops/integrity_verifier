@@ -52,7 +52,7 @@ CLOSED: [2026-06-06 Sat 22:16]
 *** Verify Mode
 **** Accepts name input
 ***** If no name, displays an list of recorded directory manifests
-**** IN-PROGRESS Implement a compare
+**** TESTING Implement a compare
 **** TODO Create a preview output that will show the "tree" structure of the directory's contents
 *** New structs
 **** DONE Create new return type for validator
