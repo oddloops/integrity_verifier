@@ -52,3 +52,7 @@ add_test_exe(WriteModeTest
 add_test_exe(ReadModeTest
     ReadModeTest.cc
 )
+
+add_test_exe(VerifyModeTest
+    VerifyModeTest.cc
+)
