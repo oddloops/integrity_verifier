@@ -52,8 +52,10 @@ CLOSED: [2026-06-06 Sat 22:16]
 *** Verify Mode
 **** Accepts name input
 ***** If no name, displays an list of recorded directory manifests
-**** IN-PROGRESS Implement a compare
-**** TODO Create a preview output that will show the "tree" structure of the directory's contents
+**** DONE Implement a compare
+CLOSED: [2026-06-20 Sat 23:50]
+**** DONE Create a preview output that will show the "tree" structure of the directory's contents
+CLOSED: [2026-06-20 Sat 23:50]
 *** New structs
 **** DONE Create new return type for validator
 CLOSED: [2026-02-08 Sun 20:33]
@@ -68,5 +70,5 @@ CLOSED: [2026-02-01 Sun 22:40]
 ***** [X] Create basic test
 ***** [X] Create TDD tests for Record
 *** Future items/ideas
-**** UI display for input and output.
+**** TODO UI display for input and output.
 **** TODO Improve error messaging for each mode.

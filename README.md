@@ -5,4 +5,4 @@ A lightweight C++ project focused on learning modern C++ practices. The File Int
 ## Modes
 * Write: scans directory and records metadata
 * Read: load existing integrity record
-* Verify (WIP): compares the existing integrity record with the current directory and files.
+* Verify: compares the existing integrity record with the current directory and files.
