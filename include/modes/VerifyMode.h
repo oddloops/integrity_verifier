@@ -7,7 +7,8 @@
 class VerifyMode : public Mode
 {
 public:
-  using Mode::Mode;
+  explicit VerifyMode(IntegrityCore& core)
+        : Mode(core), _writer(core) {}
   bool run(ModeContext const& ctx) override;
   
 private:
