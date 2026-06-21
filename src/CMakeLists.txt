@@ -6,6 +6,7 @@ add_library(Integrity
 	
 	modes/WriteMode.cc
 	modes/ReadMode.cc
+	modes/VerifyMode.cc
 	
 	models/DirectoryContent.cc
 	models/FileInfo.cc
@@ -29,6 +30,7 @@ target_sources(Integrity
 			${PROJECT_SOURCE_DIR}/include/modes/Mode.h
 			${PROJECT_SOURCE_DIR}/include/modes/WriteMode.h
 			${PROJECT_SOURCE_DIR}/include/modes/ReadMode.h
+			${PROJECT_SOURCE_DIR}/include/modes/VerifyMode.h
 
 )
 
