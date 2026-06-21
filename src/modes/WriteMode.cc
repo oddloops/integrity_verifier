@@ -1,5 +1,6 @@
 #include "modes/WriteMode.h"
 #include "models/AcceptedFSType.h"
+#include <iostream>
 #include <nlohmann/json.hpp>
 
 #include <fstream>
@@ -12,7 +13,10 @@ bool WriteMode::run(ModeContext const& ctx) {
   }
 
   DirectoryContent directoryContent = _core.scanDirectory(ctx.directoryPath);
-  return writeRecord(directoryContent, ctx.outputPath);
+  if (writeRecord(directoryContent, ctx.outputPath)) {
+    std::cerr << getErrorMsg();
+  }
+  return true;
 }
 
 bool WriteMode::writeRecord(DirectoryContent const& directoryContent,
@@ -27,7 +31,7 @@ bool WriteMode::writeRecord(DirectoryContent const& directoryContent,
   // write to file
   std::ofstream ofs(outputFile, std::ofstream::out);
   if (!ofs.is_open()) {
-    _errorMessage = "Failure to open file: " + outputFile.string();
+    setErrorMsg("Failure to open file: " + outputFile.string());
     return false;
   }
 
