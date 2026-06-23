@@ -1,0 +1,8 @@
+#+title: Process record
+#+author: oddloops
+* Summary
+Integrity Verifier to check if a directory's contents have been modified. Contains three modes:
+1. Write mode: reads the contents of a directory and produces a JSON file containing its state at execution
+2. Read mode: reads and displays contents of existing JSON files
+3. Verify mode: compares record with current directory contents to identify if any changes occurred
+* Breakdown
