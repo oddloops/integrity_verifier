@@ -6,3 +6,8 @@ Integrity Verifier to check if a directory's contents have been modified. Contai
 2. Read mode: reads and displays contents of existing JSON files
 3. Verify mode: compares record with current directory contents to identify if any changes occurred
 * Breakdown
+** Integrity Core
+The IntegrityCore class is the foundation. Its methods define common operations used across all modes. Such operations include validating file paths, directory scanning, creating the directory information data structure, and output function.
+** Models
+*** DirectoryContent struct
+*** FileInfo struct
