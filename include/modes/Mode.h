@@ -21,7 +21,7 @@ public:
   }
 
 protected:
-  IntegrityCore _core;
+  IntegrityCore& _core;
   std::string _errorMessage;
 
   void setErrorMsg(std::string msg) {
